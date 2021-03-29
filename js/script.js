@@ -45,7 +45,6 @@ function dibujarTarjetas(articulos,criterioOrdenamiento){
     contenedorTarjetas.innerHTML='';
 
     const topeTitulo = 27;
-    const topeDescripcion = 100;
     const cantPocoStock = 5;
     
     articulosOrdenasFiltrados.forEach(unArticulo =>{
@@ -53,7 +52,6 @@ function dibujarTarjetas(articulos,criterioOrdenamiento){
         let tituloArticulo = unArticulo.nombre;
         let descripcionArticulo = unArticulo.descripcion;
         let tituloCarta = (tituloArticulo.length < topeTitulo ?  tituloArticulo :  tituloArticulo.slice(0,topeTitulo)+"...");
-        let descripcionCarta = (descripcionArticulo < topeDescripcion ? descripcionArticulo : descripcionArticulo.slice(0,topeDescripcion)+"...");
 
         
         let idCartaImagen = `img-carta-${unArticulo._id}`;  
@@ -63,9 +61,10 @@ function dibujarTarjetas(articulos,criterioOrdenamiento){
         let imgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/ultimas-unidades.png" alt="" class="imagen-pocoStock">` : "" );
         let vistaImgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/ultimas-unidades.png" alt="" class="imagen-pocoStock">` : "" );
 
+        
         contenedorTarjetas.innerHTML += `
-        <div class="col-4 mt-5" >
-            <div class="card" style="width: 20rem;">
+        <div class="col-4 mt-5 " >
+            <div class="card " style="width: 18rem; ">
                 <div class="carta-imagen">
                     <div class="contenedorImgArticuloYSinStock" id="${idCartaImagen}">
                         ${imgPocoStock}
@@ -74,19 +73,17 @@ function dibujarTarjetas(articulos,criterioOrdenamiento){
             
                 <div class="card-body">
                     <div class="carta-titulo"> 
-                        <h5 class="card-title" data-bs-toggle="tooltip" data-bs-placement="top" title="${tituloArticulo}">${tituloCarta}</h5>
+                        <h5 class="card-title" data-bs-toggle="tooltip" data-bs-placement="top" title="${tituloArticulo}">${tituloArticulo}</h5>
                     </div>
-                    <div class = "carta-descripcion">
-                        <p class="card-text">${descripcionCarta}</p>
-                    </div>    
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Precio: $ ${unArticulo.precio}</li>
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item ">Precio: $ ${unArticulo.precio}</li>
                     <li class="list-group-item">Stock: ${unArticulo.stock}</li>
                 </ul>
+                
                 <div class="card-body carta-botones">
-                    <button type="button" class="btn btn-outline-info "data-bs-toggle="modal" data-bs-target="#${idModal}">Revision rapida</button>
-                    <button type="button" class="btn btn-outline-success">Añadir al carrito</button>
+                    <button type="button" class="btn btn-sm btn-dark "data-bs-toggle="modal" data-bs-target="#${idModal}">Revision rapida</button>
+                    <button type="button" class="btn btn-sm btn-success">Añadir al carrito</button>
                 </div>
             </div>
 

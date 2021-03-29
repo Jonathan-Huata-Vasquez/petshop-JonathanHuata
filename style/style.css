@@ -89,7 +89,16 @@ button.modal-confirmacio-cerrar{
     height: 15vh;
 }
 
-/**/
+div.muralFarmacia{
+    width: 100vw;;
+    height: 35em;
+    background-image: url(https://irp-cdn.multiscreensite.com/f4f36b9e/MOBILE/jpg/1520602-banner-1.jpg);
+}
+div.muralJuguete{
+    width: 100vw;;
+    height: 21.5em;
+    background-image: url(https://petlisis.com.ar/imagenes/banner/1_1611155459.webp?v=260121);
+}
 
 div.carta-imagen{
     width: 100%;
@@ -162,3 +171,4 @@ div.carta-botones{
     justify-content: space-around;
     align-items: center;
 }
+
