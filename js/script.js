@@ -60,8 +60,8 @@ function dibujarTarjetas(articulos,criterioOrdenamiento){
         let idVistaImagen = `vista-img-carta-${unArticulo._id}`;  
         let idModal = `modal-${unArticulo._id}`;  
 
-        let imgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/poco-stock.png" alt="" class="imagen-pocoStock">` : "" );
-        let vistaImgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/poco-stock.png" alt="" class="imagen-pocoStock">` : "" );
+        let imgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/ultimas-unidades.png" alt="" class="imagen-pocoStock">` : "" );
+        let vistaImgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/ultimas-unidades.png" alt="" class="imagen-pocoStock">` : "" );
 
         contenedorTarjetas.innerHTML += `
         <div class="col-4 mt-5" >
