@@ -13,7 +13,8 @@
 </head>
 
 <body id="juguetes.html">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand me-5" href="index.html">
           <img src="assets/logo.png" alt="logo" class="logo">
@@ -37,16 +38,98 @@
               <a class="nav-link " href="contactenos.html">📞 Contactenos</a>
             </li>
           </ul>
+          <button type="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+            id="btnCarrito">Carrito</button>
         </div>
       </div>
     </nav>
-  <header>
-    
-
   </header>
+
+  <!--Carrito-->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="carrito" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header  text-white" style="background-color: black;">
+      <h5 id="offcanvasRightLabel">Tu carrito</h5>
+      <button type="button" class="btn-close btn-close-white " data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body ">
+      <div class="d-flex flex-column scrolleable">
+        <div class="item-carrito" style="border: 1px solid;">
+          <div class="porta-foto-btnQuitar " style="border: 1px solid;">
+              <div class="porta-imagen-carrito">
+                <img src="https://cdn.shopify.com/s/files/1/0406/8003/0364/products/product-image-1291332388_445a8917-102c-4afe-879b-6f5f37c1a676_1024x1024.jpg?v=1592521690" alt="" class="w-100">
+              </div>
+              <button type="button" class="btn btn-sm btn-danger mt-3">Quitar</button>
+          </div>
+          <div class="porta-titulo-precio ">
+              <h5>Juguete interactivo IQ Treat Ball</h5>
+              <p>cantidad: 4 x <span class="carrito-precioIndividualTotal">$500</span>  = <span class="carrito-precioIndividualTotal">$2000</span> </p>
+          </div>
+        </div>
+
+        <div class="item-carrito" style="border: 1px solid;">
+          <div class="porta-foto-btnQuitar " style="border: 1px solid;">
+              <div class="porta-imagen-carrito">
+                <img src="https://cdn.shopify.com/s/files/1/0406/8003/0364/products/product-image-1291332388_445a8917-102c-4afe-879b-6f5f37c1a676_1024x1024.jpg?v=1592521690" alt="" class="w-100">
+              </div>
+              <button type="button" class="btn btn-sm btn-danger mt-3">Quitar</button>
+          </div>
+          <div class="porta-titulo-precio ">
+              <h5>Juguete interactivo IQ Treat Ball</h5>
+              <p>cantidad: 4 x <span class="carrito-precioIndividualTotal">$500</span>  = <span class="carrito-precioIndividualTotal">$2000</span> </p>
+          </div>
+        </div>
+
+        <div class="item-carrito" style="border: 1px solid;">
+          <div class="porta-foto-btnQuitar " style="border: 1px solid;">
+              <div class="porta-imagen-carrito">
+                <img src="https://cdn.shopify.com/s/files/1/0406/8003/0364/products/product-image-1291332388_445a8917-102c-4afe-879b-6f5f37c1a676_1024x1024.jpg?v=1592521690" alt="" class="w-100">
+              </div>
+              <button type="button" class="btn btn-sm btn-danger mt-3">Quitar</button>
+          </div>
+          <div class="porta-titulo-precio ">
+              <h5>Juguete interactivo IQ Treat Ball</h5>
+              <p>cantidad: 4 x <span class="carrito-precioIndividualTotal">$500</span>  = <span class="carrito-precioIndividualTotal">$2000</span> </p>
+          </div>
+        </div>
+        <div class="item-carrito" style="border: 1px solid;">
+          <div class="porta-foto-btnQuitar " style="border: 1px solid;">
+              <div class="porta-imagen-carrito">
+                <img src="https://cdn.shopify.com/s/files/1/0406/8003/0364/products/product-image-1291332388_445a8917-102c-4afe-879b-6f5f37c1a676_1024x1024.jpg?v=1592521690" alt="" class="w-100">
+              </div>
+              <button type="button" class="btn btn-sm btn-danger mt-3">Quitar</button>
+          </div>
+          <div class="porta-titulo-precio ">
+              <h5>Juguete interactivo IQ Treat Ball</h5>
+              <p>cantidad: 4 x <span class="carrito-precioIndividualTotal">$500</span>  = <span class="carrito-precioIndividualTotal">$2000</span> </p>
+          </div>
+        </div>
+        <div class="item-carrito" style="border: 1px solid;">
+          <div class="porta-foto-btnQuitar " style="border: 1px solid;">
+              <div class="porta-imagen-carrito">
+                <img src="https://cdn.shopify.com/s/files/1/0406/8003/0364/products/product-image-1291332388_445a8917-102c-4afe-879b-6f5f37c1a676_1024x1024.jpg?v=1592521690" alt="" class="w-100">
+              </div>
+              <button type="button" class="btn btn-sm btn-danger mt-3">Quitar</button>
+          </div>
+          <div class="porta-titulo-precio ">
+              <h5>Juguete interactivo IQ Treat Ball</h5>
+              <p>cantidad: 4 x <span class="carrito-precioIndividualTotal">$500</span>  = <span class="carrito-precioIndividualTotal">$2000</span> </p>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+          <h5>Total: $9940</h5>
+          <button type="button" class="btn btn-info mt-3 w-100">Ver Carrito</button>
+          <button type="button" class="btn btn-success mt-3 w-100" data-bs-dismiss="offcanvas">Seguir comprando</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
   <main>
     <div class="muralJuguete">
-      
+
     </div>
 
     <div class="container">
@@ -60,8 +143,9 @@
               <h4>Ordenar por </h4>
             </div>
             <div class="col-6 col-sm-6 col-md-4">
-              <select id="selectOrdenamiento" class="form-select" aria-label="Default select example" name="ordenamiento">
-                <option value="" selected >Sin criterio</option>
+              <select id="selectOrdenamiento" class="form-select" aria-label="Default select example"
+                name="ordenamiento">
+                <option value="" selected>Sin criterio</option>
                 <option value="mayorPrecio">Mayor Precio</option>
                 <option value="menorPrecio">Menor Precio</option>
               </select>
@@ -70,11 +154,11 @@
         </div>
       </div>
     </div>
-    
-    <div class="container">
-      
 
-      <div class="row" id="contenedorTarjetas">  
+    <div class="container">
+
+
+      <div class="row" id="contenedorTarjetas">
 
       </div>
 

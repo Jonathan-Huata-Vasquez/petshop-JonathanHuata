@@ -51,7 +51,6 @@ function dibujarTarjetas(articulos,criterioOrdenamiento){
         
         let tituloArticulo = unArticulo.nombre;
         let descripcionArticulo = unArticulo.descripcion;
-        let tituloCarta = (tituloArticulo.length < topeTitulo ?  tituloArticulo :  tituloArticulo.slice(0,topeTitulo)+"...");
 
         
         let idCartaImagen = `img-carta-${unArticulo._id}`;  
