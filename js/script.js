@@ -1,66 +1,85 @@
+var carrito = [];
 
-if(document.getElementById("farmacia.html")||document.getElementById("juguetes.html")){
+if (document.getElementById("farmacia.html") || document.getElementById("juguetes.html")) {
     fetch("https://apipetshop.herokuapp.com/api/articulos")
-    .then(unaRespuesta =>{
-        unaRespuesta.json()
-        .then((data)=>{
-            programaFarmaciaJuguete(data.response);
+        .then(unaRespuesta => {
+            unaRespuesta.json()
+                .then((data) => {
+                    programaFarmaciaJuguete(data.response);
+                })
+            .catch(error => console.log(error + "aqui dice error"))
         })
-        .catch(error=> console.log(error + "aqui dice error"))        
-    })
-}else if(document.getElementById("contactenos.html")){
+} else if (document.getElementById("contactenos.html")) {
     const botonEnviar = document.getElementById("btnEnviar")
-    botonEnviar.addEventListener("click",(e)=>{
-        e.preventDefault();        
+    botonEnviar.addEventListener("click", (e) => {
+        e.preventDefault();
         enviar();
     });
 }
 
 
 
-function programaFarmaciaJuguete(articulos){
-    const selectOrdenamiento = document.getElementById("selectOrdenamiento");
-    console.log(selectOrdenamiento);
-    selectOrdenamiento.addEventListener("change",()=>{
-        dibujarTarjetas(articulos,selectOrdenamiento.value);
-    });
-    dibujarTarjetas(articulos,"");
-}
-
-
-function ordenarArticulos(articulos, criterioOrdenamiento){
-    if(criterioOrdenamiento ==="")
-        return articulos;
-    else if(criterioOrdenamiento === "mayorPrecio")
-        return [...articulos].sort((a,b)=>parseInt(b.precio)- parseInt(a.precio));
-    else
-    return [...articulos].sort((a,b)=>parseInt(a.precio)-parseInt(b.precio));
-}
-
-
-function dibujarTarjetas(articulos,criterioOrdenamiento){
-    let propiedad = (document.getElementById("farmacia.html") ? "Medicamento": "Juguete");
-    let articulosOrdenasFiltrados = ordenarArticulos(articulos.filter(unArticulo => unArticulo.tipo ===propiedad),criterioOrdenamiento)
-    const contenedorTarjetas =  document.getElementById("contenedorTarjetas");
-    contenedorTarjetas.innerHTML='';
-
-    const topeTitulo = 27;
-    const cantPocoStock = 5;
+function programaFarmaciaJuguete(articulos) {
     
-    articulosOrdenasFiltrados.forEach(unArticulo =>{
-        
+    let propiedad = (document.getElementById("farmacia.html") ? "Medicamento" : "Juguete");
+    let articulosFiltrados = articulos.filter(unArticulo => unArticulo.tipo === propiedad)
+    const selectOrdenamiento = document.getElementById("selectOrdenamiento");
+    selectOrdenamiento.addEventListener("change", () => {
+        dibujarTarjetas(articulosFiltrados, selectOrdenamiento.value);
+    });
+    dibujarTarjetas(articulosFiltrados, "");
+
+    /*añado funcionalidad a los botones de añadir al carrito*/
+    articulosFiltrados.forEach(unArticulo => {
+        btnAniadirAlCarrito = document.getElementById(unArticulo._id);
+
+        btnAniadirAlCarrito.addEventListener("click", (e) => {
+            //busco si existe el articulo en el carrito
+            let articuloBuscado = carrito.find(unItemCarrito => unItemCarrito.id === e.target.id);
+            if (articuloBuscado)
+                articuloBuscado.cantidad++;
+            else {
+                let itemCarrito = new ItemCarrito(unArticulo._id, unArticulo.nombre, 1, unArticulo.precio, unArticulo.imagen);
+                carrito.push(itemCarrito);
+            }
+            dibujarCarrito(carrito);
+        });
+    });
+
+}
+
+
+function ordenarArticulos(articulos, criterioOrdenamiento) {
+    if (criterioOrdenamiento === "")
+        return articulos;
+    else if (criterioOrdenamiento === "mayorPrecio")
+        return [...articulos].sort((a, b) => parseInt(b.precio) - parseInt(a.precio));
+    else
+        return [...articulos].sort((a, b) => parseInt(a.precio) - parseInt(b.precio));
+}
+
+
+function dibujarTarjetas(articulos, criterioOrdenamiento) {
+
+    let articulosOrdenasFiltrados = ordenarArticulos(articulos, criterioOrdenamiento)
+    const contenedorTarjetas = document.getElementById("contenedorTarjetas");
+    contenedorTarjetas.innerHTML = '';
+    const cantPocoStock = 5;
+
+    articulosOrdenasFiltrados.forEach(unArticulo => {
+
         let tituloArticulo = unArticulo.nombre;
         let descripcionArticulo = unArticulo.descripcion;
 
-        
-        let idCartaImagen = `img-carta-${unArticulo._id}`;  
-        let idVistaImagen = `vista-img-carta-${unArticulo._id}`;  
-        let idModal = `modal-${unArticulo._id}`;  
 
-        let imgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/ultimas-unidades.png" alt="" class="imagen-pocoStock">` : "" );
-        let vistaImgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/ultimas-unidades.png" alt="" class="imagen-pocoStock">` : "" );
+        let idCartaImagen = `img-carta-${unArticulo._id}`;
+        let idVistaImagen = `vista-img-carta-${unArticulo._id}`;
+        let idModal = `modal-${unArticulo._id}`;
 
-        
+        let imgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/ultimas-unidades.png" alt="" class="imagen-pocoStock">` : "");
+        let vistaImgPocoStock = (unArticulo.stock < cantPocoStock ? `<img src="assets/farmacia y juguetes/ultimas-unidades.png" alt="" class="imagen-pocoStock">` : "");
+
+
         contenedorTarjetas.innerHTML += `
         <div class="col-4 mt-5 " >
             <div class="card " style="width: 18rem; ">
@@ -82,7 +101,7 @@ function dibujarTarjetas(articulos,criterioOrdenamiento){
                 
                 <div class="card-body carta-botones">
                     <button type="button" class="btn btn-sm btn-dark "data-bs-toggle="modal" data-bs-target="#${idModal}">Revision rapida</button>
-                    <button type="button" class="btn btn-sm btn-success">Añadir al carrito</button>
+                    <button type="button" class="btn btn-sm btn-success" id = ${unArticulo._id}>Añadir al carrito</button>
                 </div>
             </div>
 
@@ -111,47 +130,51 @@ function dibujarTarjetas(articulos,criterioOrdenamiento){
             </div>
 
         </div>
-        `;       
+        `;
 
-        document.getElementById(idCartaImagen).style.backgroundImage =`url(${unArticulo.imagen})`;
+        document.getElementById(idCartaImagen).style.backgroundImage = `url(${unArticulo.imagen})`;
         document.getElementById(idVistaImagen).style.backgroundImage = `url(${unArticulo.imagen})`;
+
+
+
+
         inicializarTooltipsBootstrap();
-        
+
     });
-    console.log("holo3");
+
 }
 
-function enviar(){
+function enviar() {
     let retorno = true;
     const bootstrapClaseInvalidacion = "is-invalid";
 
     //le saco la clase de bootstrap is-invalid a todos los elementos con que debo verificar
     let elementos = Array.from(document.getElementsByClassName(bootstrapClaseInvalidacion))
-    elementos.forEach(unElemento=>unElemento.classList.remove(bootstrapClaseInvalidacion));
+    elementos.forEach(unElemento => unElemento.classList.remove(bootstrapClaseInvalidacion));
 
     const fieldNombre = document.getElementById("nombres");
     const fieldApellido = document.getElementById("apellidos");
     const fieldEmail = document.getElementById("email");
 
-    if( estaVacioInputText(fieldNombre,bootstrapClaseInvalidacion) )
+    if (estaVacioInputText(fieldNombre, bootstrapClaseInvalidacion))
         retorno = false;
-    if(estaVacioInputText(fieldApellido,bootstrapClaseInvalidacion) )
+    if (estaVacioInputText(fieldApellido, bootstrapClaseInvalidacion))
         retorno = false;
-    if(estaVacioInputText(fieldEmail,bootstrapClaseInvalidacion))
+    if (estaVacioInputText(fieldEmail, bootstrapClaseInvalidacion))
         retorno = false;
-    
+
     //Verificacion de checkBoxs
     let labelCheckboxes = document.getElementById("labelGrupoCheckboxs");
-    let checkboxes = Array.from(document.getElementsByName("tiposMascotas")) 
+    let checkboxes = Array.from(document.getElementsByName("tiposMascotas"))
     let cantidadChecked = 0;
 
-    checkboxes.forEach(unCheck=>{        
-        if(unCheck.checked){
-            cantidadChecked ++;
+    checkboxes.forEach(unCheck => {
+        if (unCheck.checked) {
+            cantidadChecked++;
         }
     });
-    if(cantidadChecked === 0){
-        checkboxes.forEach(unCheck=>{
+    if (cantidadChecked === 0) {
+        checkboxes.forEach(unCheck => {
             unCheck.classList.add(bootstrapClaseInvalidacion);
         });
         labelCheckboxes.classList.add(bootstrapClaseInvalidacion);
@@ -161,39 +184,102 @@ function enviar(){
 
     //validacion del boton select
     const botonSelelct = document.getElementById("razonConsulta");
-    if(botonSelelct.value ===""){
+    if (botonSelelct.value === "") {
         botonSelelct.classList.add(bootstrapClaseInvalidacion);
         retorno = false;
     }
 
     //validacion del textArea
     const textAreaMensaje = document.getElementById("textAreaMensaje");
-    if(textAreaMensaje.value == ""){
+    if (textAreaMensaje.value == "") {
         textAreaMensaje.classList.add(bootstrapClaseInvalidacion);
         retorno = false;
     }
-        
-    
+
+
 
     //mostrar mensaje de confirmacion
-    if(retorno){
+    if (retorno) {
         let modalConfirmacion = new bootstrap.Modal(document.getElementById("modalConfirmacion"));
         modalConfirmacion.show();
     }
     return retorno;
 }
 
-function estaVacioInputText(input,bootstrapClaseInvalidacion){
-    if(input.value ==""){
+function estaVacioInputText(input, bootstrapClaseInvalidacion) {
+    if (input.value == "") {
         input.classList.add(bootstrapClaseInvalidacion);
         return true;
     }
     return false;
 }
 
-function inicializarTooltipsBootstrap(){
+function inicializarTooltipsBootstrap() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     })
+}
+
+class ItemCarrito {
+    constructor(id, titulo, cantidad, precio, imagen) {
+        this.id = id;
+        this.titulo = titulo;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.imagen = imagen;
+    }
+    calcularTotal() {
+        return this.cantidad * this.precio;
+    }
+}
+
+function dibujarCarrito() {
+    const listaItemsCarrito = document.getElementById("listaItemsCarrito");
+    const precioTotalCarrito = document.getElementById("precioTotalCarrito");
+    let total = 0;
+    listaItemsCarrito.innerHTML = "";
+
+
+    carrito.forEach((unItem) => {
+        const idbtnQuitar = `btnQuitar-${unItem.id}`;
+        let articuloCarrito = document.createElement("div");
+        articuloCarrito.classList.add("item-carrito");
+        articuloCarrito.style.border = "1px solid";
+        articuloCarrito.innerHTML = `
+        <div class="porta-foto-btnQuitar " style="border: 1px solid;">
+              <div class="porta-imagen-carrito">
+                <img src="${unItem.imagen}" alt="" class="w-100">
+              </div>
+              <button type="button" class="btn btn-sm btn-danger mt-3" id="${idbtnQuitar}">Quitar</button>
+          </div>
+          <div class="porta-titulo-precio " >
+              <h5>${unItem.titulo}</h5>
+              <p>cantidad: ${unItem.cantidad} x <span class="carrito-precioIndividualTotal">$${unItem.precio}</span>  = <span class="carrito-precioIndividualTotal">$${unItem.calcularTotal()}</span> </p>
+          </div>
+        </div>
+        `;
+        total += unItem.calcularTotal();
+        listaItemsCarrito.appendChild(articuloCarrito);
+        agregarFuncionalidadBtnQuitarCarrito(document.getElementById(idbtnQuitar));
+    });
+    precioTotalCarrito.innerText = `Total: $${total}`;
+}
+
+function agregarFuncionalidadBtnQuitarCarrito(btnQuitar) {
+    const precioTotalCarrito = document.getElementById("precioTotalCarrito");
+    let total = 0;
+    btnQuitar.addEventListener("click", (event) => {
+        let itemBuscado = carrito.find(item => ("btnQuitar-" + item.id) === event.target.id);
+        carrito = carrito.filter(item => {
+            if (item.id != itemBuscado.id) {
+                total += item.calcularTotal();
+                return true;
+            }
+        });
+        let contenedorItem = event.target.parentElement.parentElement;
+        contenedorItem.classList.add("d-none");
+        precioTotalCarrito.innerText = `Total: $${total}`;
+    });
+    
 }
