@@ -1,4 +1,20 @@
+class ItemCarrito {
+    constructor(id, titulo, cantidad, precio, imagen) {
+        this.id = id;
+        this.titulo = titulo;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.imagen = imagen;
+    }
+    
+}
+
 var carrito = [];
+if(localStorage.getItem("carrito")){
+    carrito = JSON.parse(localStorage.getItem("carrito")) ;
+    dibujarCarrito(carrito);
+}
+    
 
 if (document.getElementById("farmacia.html") || document.getElementById("juguetes.html")) {
     fetch("https://apipetshop.herokuapp.com/api/articulos")
@@ -42,6 +58,7 @@ function programaFarmaciaJuguete(articulos) {
                 let itemCarrito = new ItemCarrito(unArticulo._id, unArticulo.nombre, 1, unArticulo.precio, unArticulo.imagen);
                 carrito.push(itemCarrito);
             }
+            localStorage.setItem("carrito",JSON.stringify(carrito));
             dibujarCarrito(carrito);
         });
     });
@@ -221,18 +238,7 @@ function inicializarTooltipsBootstrap() {
     })
 }
 
-class ItemCarrito {
-    constructor(id, titulo, cantidad, precio, imagen) {
-        this.id = id;
-        this.titulo = titulo;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.imagen = imagen;
-    }
-    calcularTotal() {
-        return this.cantidad * this.precio;
-    }
-}
+
 
 function dibujarCarrito() {
     const listaItemsCarrito = document.getElementById("listaItemsCarrito");
@@ -255,11 +261,11 @@ function dibujarCarrito() {
           </div>
           <div class="porta-titulo-precio " >
               <h5>${unItem.titulo}</h5>
-              <p>cantidad: ${unItem.cantidad} x <span class="carrito-precioIndividualTotal">$${unItem.precio}</span>  = <span class="carrito-precioIndividualTotal">$${unItem.calcularTotal()}</span> </p>
+              <p>cantidad: ${unItem.cantidad} x <span class="carrito-precioIndividualTotal">$${unItem.precio}</span>  = <span class="carrito-precioIndividualTotal">$${calcularTotal(unItem)}</span> </p>
           </div>
         </div>
         `;
-        total += unItem.calcularTotal();
+        total += calcularTotal(unItem);
         listaItemsCarrito.appendChild(articuloCarrito);
         agregarFuncionalidadBtnQuitarCarrito(document.getElementById(idbtnQuitar));
     });
@@ -273,13 +279,18 @@ function agregarFuncionalidadBtnQuitarCarrito(btnQuitar) {
         let itemBuscado = carrito.find(item => ("btnQuitar-" + item.id) === event.target.id);
         carrito = carrito.filter(item => {
             if (item.id != itemBuscado.id) {
-                total += item.calcularTotal();
+                total += calcularTotal(item);
                 return true;
             }
         });
         let contenedorItem = event.target.parentElement.parentElement;
         contenedorItem.classList.add("d-none");
         precioTotalCarrito.innerText = `Total: $${total}`;
+        localStorage.setItem("carrito",JSON.stringify(carrito));
     });
     
+}
+
+function calcularTotal(unItemCarrito) {
+    return unItemCarrito.cantidad * unItemCarrito.precio;
 }
