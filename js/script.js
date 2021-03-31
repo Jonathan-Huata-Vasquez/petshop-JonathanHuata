@@ -47,13 +47,18 @@ function programaFarmaciaJuguete(articulos) {
     const selectOrdenamiento = document.getElementById("selectOrdenamiento");
     selectOrdenamiento.addEventListener("change", () => {
         dibujarTarjetas(articulosFiltrados, selectOrdenamiento.value);
+        aplicarFuncionalidadAgregarCarrito(articulosFiltrados);
     });
     dibujarTarjetas(articulosFiltrados, "");
+    aplicarFuncionalidadAgregarCarrito(articulosFiltrados);
 
+    
+    
+}
+function aplicarFuncionalidadAgregarCarrito(articulosFiltrados){
     /*añado funcionalidad a los botones de añadir al carrito*/
     articulosFiltrados.forEach(unArticulo => {
         btnAniadirAlCarrito = document.getElementById(unArticulo._id);
-
         btnAniadirAlCarrito.addEventListener("click", (e) => {
             //busco si existe el articulo en el carrito
             let articuloCarrito = carrito.find(unItemCarrito => unItemCarrito.id === e.target.id);
@@ -70,17 +75,15 @@ function programaFarmaciaJuguete(articulos) {
             actualizarCantidadArticulosCarrito();
         });
     });
-    
 }
-
 
 function ordenarArticulos(articulos, criterioOrdenamiento) {
     if (criterioOrdenamiento === "")
         return articulos;
     else if (criterioOrdenamiento === "mayorPrecio")
-        return [...articulos].sort((a, b) => parseInt(b.precio) - parseInt(a.precio));
+        return articulos.sort((a, b) => parseInt(b.precio) - parseInt(a.precio));
     else
-        return [...articulos].sort((a, b) => parseInt(a.precio) - parseInt(b.precio));
+        return articulos.sort((a, b) => parseInt(a.precio) - parseInt(b.precio));
 }
 
 
