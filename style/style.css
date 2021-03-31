@@ -154,7 +154,7 @@ div.carta-titulo{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    text-align: center;
 }
 div.carta-descripcion{
     width: 100%;
@@ -192,6 +192,7 @@ div.carta-botones{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 .porta-titulo-precio h5{
     font-size: 1em;

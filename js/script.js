@@ -14,7 +14,11 @@ if(localStorage.getItem("carrito")){
     carrito = JSON.parse(localStorage.getItem("carrito")) ;
     dibujarCarrito(carrito);
 }
-    
+actualizarCantidadArticulosCarrito();
+
+
+
+
 
 if (document.getElementById("farmacia.html") || document.getElementById("juguetes.html")) {
     fetch("https://apipetshop.herokuapp.com/api/articulos")
@@ -62,6 +66,7 @@ function programaFarmaciaJuguete(articulos) {
             localStorage.setItem("carrito",JSON.stringify(carrito));
             dibujarCarrito(carrito);
             mostrarToast(articuloCarrito);
+            actualizarCantidadArticulosCarrito();
         });
     });
     
@@ -264,7 +269,8 @@ function dibujarCarrito() {
           </div>
           <div class="porta-titulo-precio " >
               <h5>${unItem.titulo}</h5>
-              <p>cantidad: ${unItem.cantidad} x <span class="carrito-precioIndividualTotal">$${unItem.precio}</span>  = <span class="carrito-precioIndividualTotal">$${calcularTotal(unItem)}</span> </p>
+              <p>cantidad: ${unItem.cantidad} x 
+              <span class="carrito-precioIndividualTotal">$${unItem.precio}</span>  = <span class="carrito-precioIndividualTotal">$${calcularTotal(unItem)}</span> </p>
           </div>
         </div>
         `;
@@ -290,6 +296,7 @@ function agregarFuncionalidadBtnQuitarCarrito(btnQuitar) {
         contenedorItem.classList.add("d-none");
         precioTotalCarrito.innerText = `Total: $${total}`;
         localStorage.setItem("carrito",JSON.stringify(carrito));
+        actualizarCantidadArticulosCarrito();
     });
     
 }
@@ -297,6 +304,12 @@ function agregarFuncionalidadBtnQuitarCarrito(btnQuitar) {
 function calcularTotal(unItemCarrito) {
     return unItemCarrito.cantidad * unItemCarrito.precio;
 }
+function actualizarCantidadArticulosCarrito(){
+    const elmenttoHTMLcantidadArticulosCarrito = document.getElementById("cantidadArticulosCarrito")
+    var cantidadArticulosCarrito = 0;
+    carrito.forEach(unArticulo => cantidadArticulosCarrito += unArticulo.cantidad);
+    elmenttoHTMLcantidadArticulosCarrito.innerText = `${cantidadArticulosCarrito}`;    
+}    
 
 //Bootstrap
 function inicializarTooltipsBootstrap() {
