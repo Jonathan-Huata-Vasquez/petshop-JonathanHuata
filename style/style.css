@@ -95,15 +95,19 @@ button.modal-confirmacio-cerrar{
 div.muralFarmacia{
     width: 100%;
     height: 70vh;
-    background-image: url(https://irp-cdn.multiscreensite.com/f4f36b9e/MOBILE/jpg/1520602-banner-1.jpg);
+    background-image: url("../assets/farmaciaYJuguetes/muralFarmacia.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     
 }
 div.muralJuguete{
-    width: 100vw;;
-    height: 21.5em;
-    background-image: url(https://petlisis.com.ar/imagenes/banner/1_1611155459.webp?v=260121);
+    width: 100%;;
+    height: 70vh;
+    /*background-image: url(https://petlisis.com.ar/imagenes/banner/1_1611155459.webp?v=260121);
+    background-image: url(https://tribaloo.es/blog/wp-content/uploads/2020/02/xGigwi_juguetes_ICA_02-1.jpg.pagespeed.ic_.NZ4Lu_u8OP-1024x598-1.jpg);*/
+    background-image: url(../assets/farmaciaYJuguetes/muralJuguetes.png);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 div.carta-imagen{
