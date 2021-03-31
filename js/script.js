@@ -1,3 +1,4 @@
+
 class ItemCarrito {
     constructor(id, titulo, cantidad, precio, imagen) {
         this.id = id;
