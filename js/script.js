@@ -51,18 +51,20 @@ function programaFarmaciaJuguete(articulos) {
 
         btnAniadirAlCarrito.addEventListener("click", (e) => {
             //busco si existe el articulo en el carrito
-            let articuloBuscado = carrito.find(unItemCarrito => unItemCarrito.id === e.target.id);
-            if (articuloBuscado)
-                articuloBuscado.cantidad++;
+            let articuloCarrito = carrito.find(unItemCarrito => unItemCarrito.id === e.target.id);
+            if (articuloCarrito)
+                articuloCarrito.cantidad++;
             else {
-                let itemCarrito = new ItemCarrito(unArticulo._id, unArticulo.nombre, 1, unArticulo.precio, unArticulo.imagen);
-                carrito.push(itemCarrito);
+                articuloCarrito = new ItemCarrito(unArticulo._id, unArticulo.nombre, 1, unArticulo.precio, unArticulo.imagen);
+                carrito.push(articuloCarrito);
             }
+
             localStorage.setItem("carrito",JSON.stringify(carrito));
             dibujarCarrito(carrito);
+            mostrarToast(articuloCarrito);
         });
     });
-
+    
 }
 
 
@@ -152,11 +154,8 @@ function dibujarTarjetas(articulos, criterioOrdenamiento) {
         document.getElementById(idCartaImagen).style.backgroundImage = `url(${unArticulo.imagen})`;
         document.getElementById(idVistaImagen).style.backgroundImage = `url(${unArticulo.imagen})`;
 
-
-
-
         inicializarTooltipsBootstrap();
-
+        
     });
 
 }
@@ -172,6 +171,7 @@ function enviar() {
     const fieldNombre = document.getElementById("nombres");
     const fieldApellido = document.getElementById("apellidos");
     const fieldEmail = document.getElementById("email");
+    const fieldTelefono = document.getElementById("telefono");
 
     if (estaVacioInputText(fieldNombre, bootstrapClaseInvalidacion))
         retorno = false;
@@ -219,6 +219,15 @@ function enviar() {
     if (retorno) {
         let modalConfirmacion = new bootstrap.Modal(document.getElementById("modalConfirmacion"));
         modalConfirmacion.show();
+        fieldNombre.value ="";
+        fieldApellido.value ="";
+        fieldEmail.value = "";
+        fieldTelefono.value="";
+        checkboxes.forEach(unCheck => unCheck.checked = false);
+        botonSelelct.selectedIndex=0;
+        textAreaMensaje.value = "";
+        
+
     }
     return retorno;
 }
@@ -231,12 +240,7 @@ function estaVacioInputText(input, bootstrapClaseInvalidacion) {
     return false;
 }
 
-function inicializarTooltipsBootstrap() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    })
-}
+
 
 
 
@@ -251,9 +255,8 @@ function dibujarCarrito() {
         const idbtnQuitar = `btnQuitar-${unItem.id}`;
         let articuloCarrito = document.createElement("div");
         articuloCarrito.classList.add("item-carrito");
-        articuloCarrito.style.border = "1px solid";
         articuloCarrito.innerHTML = `
-        <div class="porta-foto-btnQuitar " style="border: 1px solid;">
+        <div class="porta-foto-btnQuitar " >
               <div class="porta-imagen-carrito">
                 <img src="${unItem.imagen}" alt="" class="w-100">
               </div>
@@ -293,4 +296,26 @@ function agregarFuncionalidadBtnQuitarCarrito(btnQuitar) {
 
 function calcularTotal(unItemCarrito) {
     return unItemCarrito.cantidad * unItemCarrito.precio;
+}
+
+//Bootstrap
+function inicializarTooltipsBootstrap() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    })
+}
+
+function mostrarToast(unArticulo){
+    var tostadaHTMLElemento = document.getElementById("agregarCarritoToast");
+    const tostadaNombre = document.getElementById("toastNombreArticulo");
+    const tostadaImagen = document.getElementById("toastImagen");
+
+    tostadaNombre.innerText =unArticulo.titulo;
+    tostadaImagen.setAttribute("src",unArticulo.imagen);
+
+    var tostadaElemento = new bootstrap.Toast(tostadaHTMLElemento);
+    
+    tostadaElemento.show();
+    
 }

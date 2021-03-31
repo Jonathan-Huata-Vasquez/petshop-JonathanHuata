@@ -197,12 +197,11 @@ div.carta-botones{
     font-size: 1em;
 }
 .carrito-precioIndividualTotal{
-    color: springgreen;
+    color:seagreen;
 }
 
 .porta-imagen-carrito{
     width: 70%;
-    border: 1px solid;
 }
 .scrolleable  {
     overflow:auto;
