@@ -39,12 +39,10 @@
                             <a class="nav-link active" href="#">📞 Contactenos</a>
                         </li>
                     </ul>
-                    <button id="btnCarrito" type="button" class="btn btn-success" data-bs-toggle ="offcanvas" data-bs-target="#carrito"">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                        </svg>
+                    <button id="btnCarrito" type="button" class="btn btn-success" data-bs-toggle ="offcanvas" data-bs-target="#carrito">
+                        <img src="assets/cart_highlight_shopping_icon_153756.png" alt="" style="width: 26px;" data-bs-toggle ="offcanvas" data-bs-target="#carrito">
                         Tu carrito <span id="cantidadArticulosCarrito" class="badge bg-danger">11</span>
-                      </button>
+                    </button>
                 </div>
             </div>
         </nav>
@@ -52,7 +50,7 @@
     </header>
 
     <!--Carrito-->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="carrito" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas offcanvas-end " tabindex="-1" id="carrito" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header  text-white" style="background-color: black;">
       <h5 id="offcanvasRightLabel">Tu carrito</h5>
       <button type="button" class="btn-close btn-close-white " data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -64,7 +62,11 @@
 
       <div class="d-flex flex-column align-items-center mt-4" style="border-top: 1px solid;">
           <h5 id="precioTotalCarrito"></h5>
-          <button type="button" class="btn btn-info mt-3 w-100">Ver Carrito</button>
+          <div class="w-100 d-flex justify-content-around">
+              <button id="btnVaciarCarrito" type="button" class="btn btn-danger mt-3">Vaciar Carrito</button>
+              <button id="btnFinalizarCompra" type="button" class="btn btn-info mt-3" data-bs-dismiss="offcanvas">Finalizar Compra</button> 
+          </div>
+          
           <button type="button" class="btn btn-success mt-3 w-100" data-bs-dismiss="offcanvas">Seguir comprando</button>
       </div>
 
@@ -293,6 +295,19 @@
         </div>
 
     </main>
+
+
+    <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 5">
+        <div id="finalizarCompra" class="toast hide bg-info " role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong  class="me-auto">Muchas Gracias por su compra</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" ></button>
+          </div>
+          <div class="toast-body d-flex justify-content-around align-items-center" >
+              <h5 class="d-inline"  style="font-size: 1em; ">Esperamos Su regreso!!!</h5> 
+          </div>
+        </div>
+      </div>
     <footer>
         <div class="container-fluid py-3 px-3">
             <div class="row d-flex  justify-content-between">
@@ -352,7 +367,7 @@
 
 
         <div class="d-flex justify-content-center align-items-center marca-registrada">
-            <h4>© 2021 Copyrigth Franco pet-shop</h4>
+            <h4>© 2021 Copyright Franco pet-shop</h4>
         </div>
 
     </footer>

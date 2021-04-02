@@ -45,7 +45,7 @@ footer p{
 
 main{
     flex-grow: 1;
-    margin-top: 15vh;
+    margin-top: 13vh;
 }
 
 .colorPrimario{
@@ -207,6 +207,19 @@ div.carta-botones{
 .porta-titulo-precio h5{
     font-size: 1em;
 }
+.botonAumentarDisminuirCantidad{
+    border-radius: 100%;
+    text-align: center; 
+    background-color: var(--verde);
+    width: 1.25em;
+    padding: 0;
+}
+.cantidadDeUnItemCarrito{
+    width: 3em;
+    text-align: center;
+    display: inline;
+    
+}
 .carrito-precioIndividualTotal{
     color:seagreen;
 }
@@ -218,6 +231,8 @@ div.carta-botones{
     overflow:auto;
     height: 60vh;
 }
+
+
 @media (max-width : 600px){
     .muralFarmacia {
         height: 50vh;
